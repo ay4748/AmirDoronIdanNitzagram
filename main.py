@@ -1,8 +1,8 @@
-
-import pygame
-from helpers import screen
-from constants import WINDOW_WIDTH, WINDOW_HEIGHT, BLACK
-
+import pygame.locals
+from helpers import *
+from classes.ImagePost import *
+from classes import TextPost
+from buttons import *
 
 def main():
     # Set up the game display, clock and headline
@@ -19,6 +19,7 @@ def main():
                                         (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     # TODO: add a post here
+    post = ImagePost("kaki82", "New Jersey", "aviram", "Images/IdanAndDoron.jpg")
 
     running = True
     while running:
@@ -27,10 +28,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                if (mouse_in_button(like_button, pos)):
+                    post.add_like()
+
 
         # Display the background, presented Image, likes, comments, tags and location(on the Image)
         screen.fill(BLACK)
         screen.blit(background, (0, 0))
+
+        post.display()
+
 
         # Update display - without input update everything
         pygame.display.update()
@@ -39,6 +48,5 @@ def main():
         clock.tick(60)
     pygame.quit()
     quit()
-
 
 main()
