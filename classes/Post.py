@@ -1,20 +1,46 @@
+import pygame
+
+from constants import *
+from helpers import screen
+from classes.Comment import *
+
+
 class Post:
-    def init(self,username, location, description):
+    """
+    A class used to represent post on Nitzagram
+    """
+
+    def __init__(self,username, location, description):
         self.username = username
         self.location = location
         self.description = description
         self.likes_counter = 0
         self.comments = []
 
-    def add_like(self):
-        self.likes_counter += 1
-
-    def add_comment(self,comment):
-        self.comments.append(comment)
-
     def display(self):
-        pass
+        """
+        Display the Post image/Text, description, location, likes and comments
+        on screen
 
+        :return: None
+        """
+
+
+        font = pygame.font.SysFont("chalkduster.ttf", UI_FONT_SIZE)
+
+        user_name = font.render(self.username, True, BLACK)
+        screen.blit(user_name, (USER_NAME_X_POS, USER_NAME_Y_POS))  #display the user name
+
+        location = font.render(self.location, True, BLACK)
+        screen.blit(location, (LOCATION_TEXT_X_POS, LOCATION_TEXT_Y_POS)) #display the location
+
+        like_counter = font.render(str(self.likes_counter), True, BLACK)
+        screen.blit(like_counter, (LIKE_TEXT_X_POS, LIKE_TEXT_Y_POS)) #display the likes number
+
+        description = font.render(self.description, True, LIGHT_GRAY)
+        screen.blit(description, (DESCRIPTION_TEXT_X_POS, DESCRIPTION_TEXT_Y_POS)) #display the descripotion
+
+        self.display_comments()
 
 
     def display_comments(self):
@@ -24,7 +50,7 @@ class Post:
 
         :return: None
         """
-        position_index = self.comments_display_index
+        position_index = self.comments
         # If there are more than 4 comments, print "view more comments"
         if len(self.comments) > NUM_OF_COMMENTS_TO_DISPLAY:
             comment_font = pygame.font.SysFont('chalkduster.ttf',
@@ -42,3 +68,10 @@ class Post:
             position_index += 1
             if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
                 break
+
+    def add_like(self):
+        self.likes_counter += 1
+
+    def add_comment(self, text):
+        com = Comment(text)
+        self.comments.append(com)
