@@ -50,7 +50,7 @@ class Post:
 
         :return: None
         """
-        position_index = self.comments
+        position_index = 0
         # If there are more than 4 comments, print "view more comments"
         if len(self.comments) > NUM_OF_COMMENTS_TO_DISPLAY:
             comment_font = pygame.font.SysFont('chalkduster.ttf',

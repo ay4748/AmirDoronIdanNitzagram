@@ -28,10 +28,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 if (mouse_in_button(like_button, pos)):
                     post.add_like()
+                elif (mouse_in_button(comment_button, pos)):
+                    comm = read_comment_from_user()
+                    post.add_comment(comm)
 
 
         # Display the background, presented Image, likes, comments, tags and location(on the Image)
