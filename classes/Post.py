@@ -1,13 +1,4 @@
-import pygame
-
-from constants import *
-from helpers import screen
-
-
 class Post:
-    """
-    A class used to represent post on Nitzagram
-    """
     def init(self,username, location, description):
         self.username = username
         self.location = location
@@ -15,15 +6,15 @@ class Post:
         self.likes_counter = 0
         self.comments = []
 
-    def display(self):
-        """
-        Display the Post image/Text, description, location, likes and comments
-        on screen
+    def add_like(self):
+        self.likes_counter += 1
 
-        :return: None
-        """
-        # TODO: write me!
+    def add_comment(self,comment):
+        self.comments.append(comment)
+
+    def display(self):
         pass
+
 
 
     def display_comments(self):
@@ -51,6 +42,3 @@ class Post:
             position_index += 1
             if i >= NUM_OF_COMMENTS_TO_DISPLAY - 1:
                 break
-
-
-
